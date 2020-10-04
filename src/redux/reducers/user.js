@@ -1,14 +1,25 @@
 import * as ActionTypes from "../ActionTypes";
 
-export const LoginUser = (
+export const userLogin = (
   state = {
-    user: null,
+    isLoggedIn: false,
+    firstName: "",
+    lastName: "",
+    email: "",
+    _id: "",
   },
   action
 ) => {
   switch (action.type) {
     case ActionTypes.USER_LOGIN:
-      return { ...state, user: action.payload };
+      return {
+        isLoggedIn: true,
+        firstName: action.payload.firstName,
+        lastName: action.payload.lastName,
+        email: action.payload.email,
+        _id: action.payload._id,
+      };
+
     default:
       return state;
   }
