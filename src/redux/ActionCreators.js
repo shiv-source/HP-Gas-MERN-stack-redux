@@ -15,7 +15,7 @@ export const postLoginUser = (credential) => (dispatch) => {
         lastName : decoded.lastName,
         email : decoded.email,
         _id : decoded._id
-      }
+      };
       dispatch(addUser(user))
 
     }
