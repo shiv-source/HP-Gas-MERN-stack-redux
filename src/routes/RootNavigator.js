@@ -1,21 +1,20 @@
-
-import Login from "../components/login";
 import React from 'react';
 import {routes} from "./routes";
-import {Route,Switch} from 'react-router-dom';
+import {Route,Switch , Redirect } from 'react-router-dom';
 
 
  
 export const RootNavigator=()=>(
+    <div> 
+      <Switch >{
+        routes.map((router)=>{
+          return <Route key={router.path} path={router.path} component={router.component}
+          {...router}
+          />
+        })
 
-    <Switch >{
-      routes.map((router)=>{
-        return <Route key={router.path} path={router.path} component={router.component}
-        {...router}
-        />
-      })
-
-    }
-       
-    </Switch >
+      }
+        <Redirect to="/" />
+      </Switch >
+    </div>
 )

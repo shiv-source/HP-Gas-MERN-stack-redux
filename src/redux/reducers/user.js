@@ -20,7 +20,19 @@ export const userLogin = (
         _id: action.payload._id,
       };
 
+      case ActionTypes.USER_LOGOUT:
+        return {
+          isLoggedIn: false,
+          firstName: "",
+          lastName: "",
+          email: "",
+          _id: "",
+        };
+
     default:
       return state;
   }
 };
+
+
+

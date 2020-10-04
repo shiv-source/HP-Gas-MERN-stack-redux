@@ -29,12 +29,16 @@ const validEmail = (val) =>
 // });
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    userLogin: state.userLogin,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => ({
   postLoginUser: (credential) => dispatch(postLoginUser(credential)),
-  resetFeedbackForm: () => { dispatch(actions.reset("feedback")); },
+  resetFeedbackForm: () => {
+    dispatch(actions.reset("feedback"));
+  },
 });
 
 const useStyles = (theme) => ({
@@ -100,13 +104,25 @@ class Login extends Component {
     this.state = {};
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
   handleSubmit(value) {
-    // alert(value);
     this.props.postLoginUser(value);
     this.props.resetFeedbackForm();
+  
   }
+
+  handleLogin() {
+    if (this.props.userLogin.isLoggedIn) {
+      this.props.history.push("/dashboard");
+    }
+  }
+
+  componentDidUpdate(){
+    this.handleLogin();
+  }
+
 
   render() {
     const { classes } = this.props;

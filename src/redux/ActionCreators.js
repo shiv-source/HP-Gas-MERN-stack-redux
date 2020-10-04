@@ -27,3 +27,25 @@ export const addUser = (user) => ({
   type: ActionTypes.USER_LOGIN,
   payload: user,
 });
+
+
+
+export const postLogout = () => (dispatch) => {
+   localStorage.removeItem("token"); 
+   let user = {
+    firstName :"",
+    lastName : "",
+    email : "",
+    _id :""
+   }
+   dispatch(logOut(user))
+
+};
+
+
+
+
+export const logOut = (user) => ({
+  type: ActionTypes.USER_LOGOUT,
+  payload: user,
+});
