@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
-  BrowserRouter,
+  BrowserRouter,Router ,
   useHistory,
   Route,
   Switch,
@@ -13,62 +13,87 @@ import { ConfigureStore } from "./redux/configureStore";
 import jwt from "jsonwebtoken";
 import Login from "./components/login";
 import Dashboard from "./components/dashboard";
-import { connect } from "react-redux";
+import history from "./config/history";
 const store = ConfigureStore();
 //console.log(store.getState().userLogin.isLoggedIn);
 
 
-const authentication = {
-  // isLoggedIn: store.getState().userLogin.isLoggedIn,
-  isLoggedIn : store.getState().userLogin.isLoggedIn,
-  getLoginStatus() {
-    console.log(this.props);
-    return this.isLoggedIn;
-  },
-};
 
-function SecureRoute({component: Component ,path, ...data}){
-  return (
-    <Route {...data} path={path} render={ data => authentication.getLoginStatus() ? 
-    ( < Component {...data} > </Component> ) :
-    ( <Redirect to={{pathname : '/'}}  />  )
+
+
+// const authentication = {
+//   // isLoggedIn: store.getState().userLogin.isLoggedIn,
+//   isLoggedIn : store.getState().userLogin.isLoggedIn,
+//   getLoginStatus() {
+//     console.log(this.props);
+//     return this.isLoggedIn;
+//   },
+// };
+
+// function SecureRoute({component: Component ,path, ...data}){
+//   return (
+//     <Route {...data} path={path} render={ data => authentication.getLoginStatus() ? 
+//     ( < Component {...data} > </Component> ) :
+//     ( <Redirect to={{pathname : '/'}}  />  )
     
-    }>
-    </Route>
-  )
-}
+//     }>
+//     </Route>
+//   )
+// }
+
+
+
 
 class App extends Component {
   constructor(props){
     super(props);
+    this.state = {
+     
+    }
+  //this.checkLogin = this.checkLogin.bind(this);
+    
   }
+
+
   // checkLogin() {
   //   const token = localStorage.getItem("token");
   //   if (token) {
   //     let parsedToken = JSON.parse(token);
   //     console.log(parsedToken);
   //     let decoded = jwt.decode(parsedToken);
+  //     let exp = decoded.exp
   //     console.log(decoded);
+  //     if (Date.now() >= exp * 1000) {
+  //       history.push("/");
+  //     }
+  //     else{
+  //       history.push("/dashboard");
+  //     }
   //   }
+  
   // }
-
-
-  render() {
-
   
 
+
+
+  // componentDidMount(){
+  //   this.checkLogin()
+  // }
+
+  render() {
    
     return (
      
       <div>
+        
         <Provider store={store}>
-          <BrowserRouter>
+          <Router history={history} >
             <Switch>
-              <Route exact path="/" component={Login} />
-              <SecureRoute path="/dashboard" component={Dashboard} />
+              <Route exact path="/" component={Login}  />
+              <Route path="/dashboard" component={Dashboard} />
               <Redirect to="/" />
             </Switch>
-          </BrowserRouter>
+          </Router >
         </Provider>
       </div>
     );

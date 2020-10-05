@@ -16,6 +16,7 @@ import { red } from "@material-ui/core/colors";
 import { connect } from "react-redux";
 import { actions, Form, Errors, Control } from "react-redux-form";
 import { postLoginUser } from "../redux/ActionCreators";
+import history from '../config/history';
 
 const required = (val) => val && val.length;
 const minLength = (len) => (val) => val && val.length >= len;
@@ -115,7 +116,7 @@ class Login extends Component {
 
   handleLogin() {
     if (this.props.userLogin.isLoggedIn) {
-      this.props.history.push("/dashboard");
+    history.push("/dashboard")
     }
   }
 
@@ -138,7 +139,7 @@ class Login extends Component {
 
           <Form
             model="feedback"
-            onSubmit={(value) => this.handleSubmit(value)}
+            onSubmit={(value) => this.handleSubmit(value)}           
             className={classes.form}
           >
             <Control.text
